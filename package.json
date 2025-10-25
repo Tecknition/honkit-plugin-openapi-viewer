@@ -1,0 +1,25 @@
+{
+  "name": "@tecknition/honkit-plugin-openapi-viewer",
+  "version": "1.0.0",
+  "description": "Configurable OpenAPI YAML/JSON viewer plugin for Honkit",
+  "main": "index.js",
+  "keywords": ["honkit", "gitbook", "openapi", "swagger", "redoc", "yaml"],
+  "author": "ChatGPT",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node --test",
+    "coverage": "c8 node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tecknition/honkit-plugin-openapi-viewer.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "devDependencies": {
+    "c8": "^9.1.0",
+    "eslint": "^8.57.0"
+  }
+}
