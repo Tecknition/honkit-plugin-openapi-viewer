@@ -46,3 +46,53 @@ test('unsupported renderer falls back to error snippet', () => {
   const html = plugin.blocks.openapi.process.call(context, block);
   assert.match(html, /Unsupported renderer/);
 });
+
+test('page:before hook returns page when no config', () => {
+  const hookContext = {
+    config: {
+      get: (key) => null
+    }
+  };
+  const page = { content: 'test content' };
+  const result = plugin.hooks['page:before'].call(hookContext, page);
+  assert.strictEqual(result, page);
+});
+
+test('page:before hook returns page when config exists', () => {
+  const hookContext = {
+    config: {
+      get: (key) => {
+        if (key === 'pluginsConfig.openapi-viewer') {
+          return { renderer: 'redoc', file: 'api.yaml' };
+        }
+        return null;
+      }
+    }
+  };
+  const page = { content: 'test content' };
+  const result = plugin.hooks['page:before'].call(hookContext, page);
+  assert.strictEqual(result, page);
+});
+
+test('page:before hook handles page with apiTag', () => {
+  const hookContext = {
+    config: {
+      get: (key) => {
+        if (key === 'pluginsConfig.openapi-viewer') {
+          return { renderer: 'redoc', file: 'api.yaml', height: '500px' };
+        }
+        return null;
+      }
+    }
+  };
+  const page = { content: '{% openapi file="api.yaml" renderer="redoc" height="500px" %}' };
+  const result = plugin.hooks['page:before'].call(hookContext, page);
+  assert.strictEqual(result, page);
+});
+
+test('block process handles defaults correctly', () => {
+  const block = { kwargs: {} };
+  const html = plugin.blocks.openapi.process.call(context, block);
+  assert.ok(html.includes('openapi.yaml'));
+  assert.ok(html.includes('800px'));
+});
