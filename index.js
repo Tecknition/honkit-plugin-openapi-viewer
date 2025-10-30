@@ -3,11 +3,15 @@ let blockCounter = 0;
 module.exports = {
   hooks: {
     'page:before': function (page) {
-      if (!this.config.get('pluginsConfig.openapi-viewer')) {return page;}
+      if (!this.config.get('pluginsConfig.openapi-viewer')) {
+        return page;
+      }
       const config = this.config.get('pluginsConfig.openapi-viewer') || {};
       const { renderer = 'redoc', file, height = '800px' } = config;
       const apiTag = `{% openapi file="${file}" renderer="${renderer}" height="${height}" %}`;
-      if (page.content.includes(apiTag)) {return page;}
+      if (page.content.includes(apiTag)) {
+        return page;
+      }
       return page;
     },
   },
