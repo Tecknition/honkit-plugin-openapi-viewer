@@ -50,8 +50,8 @@ test('unsupported renderer falls back to error snippet', () => {
 test('page:before hook returns page when no config', () => {
   const hookContext = {
     config: {
-      get: (_key) => null,
-    },
+      get: () => null
+    }
   };
   const page = { content: 'test content' };
   const result = plugin.hooks['page:before'].call(hookContext, page);
