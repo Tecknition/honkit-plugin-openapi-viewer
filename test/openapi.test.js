@@ -50,8 +50,8 @@ test('unsupported renderer falls back to error snippet', () => {
 test('page:before hook returns page when no config', () => {
   const hookContext = {
     config: {
-      get: (key) => null
-    }
+      get: (_key) => null,
+    },
   };
   const page = { content: 'test content' };
   const result = plugin.hooks['page:before'].call(hookContext, page);
@@ -66,8 +66,8 @@ test('page:before hook returns page when config exists', () => {
           return { renderer: 'redoc', file: 'api.yaml' };
         }
         return null;
-      }
-    }
+      },
+    },
   };
   const page = { content: 'test content' };
   const result = plugin.hooks['page:before'].call(hookContext, page);
@@ -82,8 +82,8 @@ test('page:before hook handles page with apiTag', () => {
           return { renderer: 'redoc', file: 'api.yaml', height: '500px' };
         }
         return null;
-      }
-    }
+      },
+    },
   };
   const page = { content: '{% openapi file="api.yaml" renderer="redoc" height="500px" %}' };
   const result = plugin.hooks['page:before'].call(hookContext, page);
